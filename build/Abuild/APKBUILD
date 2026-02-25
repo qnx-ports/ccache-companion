@@ -1,0 +1,65 @@
+# Alpine-Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Alpine-Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Felix Xing <fxing@qnx.com>
+pkgname=ccache
+pkgver=4.12.1
+pkgrel=0
+pkgdesc="fast C/C++ compiler cache"
+url="https://ccache.dev/"
+arch="all"
+license="GPL-3.0-or-later"
+depends="
+    fmt
+    libc++
+    libxxhash
+    qnx-io-sock
+    zstd-libs
+    "
+makedepends="
+    cmake
+    doctest-dev
+    hiredis-dev
+    perl
+    ninja
+    xxhash-dev
+    zstd-dev
+    clang
+    libc++-dev
+    fmt-dev
+    "
+checkdepends="bash python3"
+source="https://github.com/ccache/ccache/releases/download/v$pkgver/ccache-$pkgver.tar.xz
+        remove-xopen-source-defines.patch
+    "
+options="!check"
+
+build() {
+    cmake -B build -G Ninja \
+        -DCMAKE_EXE_LINKER_FLAGS="-lsocket" \
+        -DCMAKE_SHARED_LINKER_FLAGS="-lsocket" \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCCACHE_DEV_MODE=OFF \
+        -DCMAKE_BUILD_TYPE=MinSizeRel \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
+}
+
+check() {
+    ctest --test-dir build
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+
+    local link=
+    mkdir -p "$pkgdir"/usr/lib/ccache/bin
+
+    for link in gcc g++ clang clang++ ; do
+        ln -sf ../../../bin/ccache "$pkgdir"/usr/lib/ccache/bin/$link
+    done
+}
+
+sha512sums="
+f6618026b99d7352fc59d8233dd1cb307970baceb37b3c0c8f5360ca485141ca12da5bcf1e58deaa9e2c383cf40b56eb6fae70a51db90f54ae126596e841eb57  ccache-4.12.1.tar.xz
+549c0207048e9920ad025d65a37e4d5227aee78eae98e54c31e6cb2d5a23cbc52c9f903679500e38d29da3a8c4a14b79a8a46b14f948a454bbe40b91efe4dea4  remove-xopen-source-defines.patch
+"

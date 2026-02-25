@@ -1,0 +1,79 @@
+diff --git a/cmake/config.h.in b/cmake/config.h.in
+index f7228d5..a5023a3 100644
+--- a/cmake/config.h.in
++++ b/cmake/config.h.in
+@@ -16,48 +16,48 @@
+ 
+ // The later definition of _XOPEN_SOURCE disables certain features on Linux, so
+ // we need _GNU_SOURCE to re-enable them.
+-#define _GNU_SOURCE 1
++//#define _GNU_SOURCE 1
+ 
+ // The later definition of _XOPEN_SOURCE and _POSIX_C_SOURCE disables certain
+ // features on NetBSD, so we need _NETBSD_SOURCE to re-enable them.
+-#define _NETBSD_SOURCE 1
++//#define _NETBSD_SOURCE 1
+ 
+ // The later definition of _XOPEN_SOURCE and _POSIX_C_SOURCE disables certain
+ // features on FreeBSD, so we need __BSD_VISIBLE to re-enable them.
+-#define __BSD_VISIBLE 1
++//#define __BSD_VISIBLE 1
+ 
+ // The later definition of _XOPEN_SOURCE and _POSIX_C_SOURCE disables u_int on
+ // Irix 5.3. Defining _BSD_TYPES brings it back.
+-#define _BSD_TYPES 1
++//#define _BSD_TYPES 1
+ 
+ // The later definition of _XOPEN_SOURCE and _POSIX_C_SOURCE disables certain
+ // features on Mac OS X, so we need _DARWIN_C_SOURCE to re-enable them.
+-#cmakedefine _DARWIN_C_SOURCE
++//#cmakedefine _DARWIN_C_SOURCE
+ 
+ // Define to activate features from IEEE Stds 1003.1-2008.
+-#define _POSIX_C_SOURCE 200809L
+-
+-#if defined(__SunOS_5_8) || defined(__SunOS_5_9) || defined(__SunOS_5_10)
+-#  define _XOPEN_SOURCE 500
+-#elif defined(__FreeBSD__)
+-#  define _XOPEN_SOURCE 700
+-#elif defined(__ibmxl__) && defined(__clang__) // Compiler xlclang
+-#  define _XOPEN_SOURCE 600
+-#  define _ALL_SOURCE 1
+-#elif !defined(__SunOS_5_11) && !defined(__APPLE__)
+-#  define _XOPEN_SOURCE
+-#endif
+-
+-#if defined(__SunOS_5_10) || defined(__SunOS_5_11)
+-#  define __EXTENSIONS__ 1
+-#else
+-#  define _XOPEN_SOURCE_EXTENDED
+-#endif
++//#define _POSIX_C_SOURCE 200809L
++
++//#if defined(__SunOS_5_8) || defined(__SunOS_5_9) || defined(__SunOS_5_10)
++//#  define _XOPEN_SOURCE 500
++//#elif defined(__FreeBSD__)
++//#  define _XOPEN_SOURCE 700
++//#elif defined(__ibmxl__) && defined(__clang__) // Compiler xlclang
++//#  define _XOPEN_SOURCE 600
++//#  define _ALL_SOURCE 1
++//#elif !defined(__SunOS_5_11) && !defined(__APPLE__)
++//#  define _XOPEN_SOURCE
++//#endif
++
++//#if defined(__SunOS_5_10) || defined(__SunOS_5_11)
++//#  define __EXTENSIONS__ 1
++//#else
++//#  define _XOPEN_SOURCE_EXTENDED
++//#endif
+ 
+ // Handle large files when compiled in 32-bit mode.
+-#ifndef _FILE_OFFSET_BITS
+-#  define _FILE_OFFSET_BITS 64
+-#endif
++//#ifndef _FILE_OFFSET_BITS
++//#  define _FILE_OFFSET_BITS 64
++//#endif
+ 
+ // clang-format off
+ #cmakedefine _WIN32_WINNT @_WIN32_WINNT@
